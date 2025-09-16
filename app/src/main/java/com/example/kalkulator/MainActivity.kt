@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            KalkulatorTheme { // Use your actual theme
+            KalkulatorTheme {
                 CalculatorScreen()
             }
         }
@@ -55,9 +55,8 @@ fun CalculatorScreen(
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom // Align buttons to bottom
+            verticalArrangement = Arrangement.Bottom
         ) {
-            // Expression Display
             Text(
                 text = uiState.expression,
                 textAlign = TextAlign.End,
@@ -65,13 +64,11 @@ fun CalculatorScreen(
                     .fillMaxWidth()
                     .padding(end = 16.dp),
                 fontWeight = FontWeight.Light,
-                fontSize = 40.sp, // Smaller font for expression
-                color = Color.White.copy(alpha = 0.7f), // Slightly faded for context
+                fontSize = 40.sp,
+                color = Color.White.copy(alpha = 0.7f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-
-            // Result Display
             Text(
                 text = if (uiState.result.isNotEmpty()) "= ${uiState.result}" else "",
                 textAlign = TextAlign.End,
@@ -79,16 +76,16 @@ fun CalculatorScreen(
                     .fillMaxWidth()
                     .padding(end = 16.dp)
                     .padding(bottom = 16.dp),
-                fontWeight = FontWeight.Bold, // Bolder for the result
-                fontSize = 58.sp, // Larger font for result
+                fontWeight = FontWeight.Bold,
+                fontSize = 58.sp,
                 color = Color.White,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.height(16.dp)) // Space between display and buttons
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Buttons Grid
+
             val buttonLayout = listOf(
                 listOf("C", "%", "DEL", "÷"),
                 listOf("7", "8", "9", "×"),
@@ -106,13 +103,13 @@ fun CalculatorScreen(
                         CalculatorButton(
                             symbol = symbol,
                             modifier = Modifier
-                                .weight(if (symbol == "0") 2f else 1f) // Make '0' wider
+                                .weight(if (symbol == "0") 2f else 1f)
                                 .aspectRatio(if (symbol == "0") 2f else 1f),
                             color = when (symbol) {
-                                "C", "DEL" -> Color(0xFFD32F2F) // Red for Clear/Delete
-                                "%", "÷", "×", "-", "+" -> MaterialTheme.colorScheme.secondary // Orange for operations
-                                "=" -> MaterialTheme.colorScheme.primary // Blue for equals
-                                else -> Color(0xFF616161) // Dark grey for numbers/decimal
+                                "C", "DEL" -> Color(0xFFD32F2F)
+                                "%", "÷", "×", "-", "+" -> MaterialTheme.colorScheme.secondary
+                                "=" -> MaterialTheme.colorScheme.primary
+                                else -> Color(0xFF616161)
                             },
                             onClick = {
                                 when (symbol) {
@@ -138,7 +135,7 @@ fun CalculatorScreen(
     }
 }
 
-// Reusing your CalculatorButton Composable
+
 @Composable
 fun CalculatorButton(
     symbol: String,
@@ -150,8 +147,8 @@ fun CalculatorButton(
         onClick = onClick,
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(containerColor = color),
-        shape = MaterialTheme.shapes.medium, // Using MaterialTheme's medium shape for rounded corners
-        contentPadding = PaddingValues(0.dp) // Remove default padding for better control
+        shape = MaterialTheme.shapes.medium,
+        contentPadding = PaddingValues(0.dp)
     ) {
         Text(text = symbol, fontSize = 32.sp, color = Color.White, fontWeight = FontWeight.Normal)
     }
@@ -160,7 +157,7 @@ fun CalculatorButton(
 @Preview(showBackground = true)
 @Composable
 fun CalculatorScreenPreview() {
-    KalkulatorTheme { // Use your actual theme
+    KalkulatorTheme {
         CalculatorScreen()
     }
 }
